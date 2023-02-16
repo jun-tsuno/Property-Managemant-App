@@ -1,6 +1,6 @@
-import React from "react";
 import Image from "next/image";
-import Button from "@/components/Button";
+import Button from "@/components/MyButton";
+import Link from "next/link";
 
 const HomePage = () => {
 	return (
@@ -10,7 +10,9 @@ const HomePage = () => {
 					<h1 className="font-bold">Manage your Properties</h1>
 					<p className="pt-1">Tenant & Property Management with this app.</p>
 					<div className="py-5">
-						<Button>Get Started</Button>
+						<Link href={"/account/register"}>
+							<Button>Get Started</Button>
+						</Link>
 					</div>
 				</div>
 				<div className="w-[80%] aspect-square mx-auto relative md:max-w-[550px] md:mx-0">

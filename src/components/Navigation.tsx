@@ -52,14 +52,16 @@ const Navigation = (props: Props) => {
 						</ListItemButton>
 					</ListItem>
 				))} */}
-				<ListItem disablePadding>
-					<ListItemButton sx={{ textAlign: "center" }}>
-						<ListItemText>
-							<LoginIcon sx={{ marginRight: "5px" }} />
-							LOGIN
-						</ListItemText>
-					</ListItemButton>
-				</ListItem>
+				<Link href={"/account/login"}>
+					<ListItem disablePadding>
+						<ListItemButton sx={{ textAlign: "center" }}>
+							<ListItemText>
+								<LoginIcon sx={{ marginRight: "5px" }} />
+								LOGIN
+							</ListItemText>
+						</ListItemButton>
+					</ListItem>
+				</Link>
 			</List>
 		</Box>
 	);
@@ -104,19 +106,21 @@ const Navigation = (props: Props) => {
 								<Link href={item.to}>{item.name}</Link>
 							</Button>
 						))} */}
-						<Button
-							size="large"
-							sx={{
-								color: "black",
-								":hover": {
-									color: "#DC5F00",
-									backgroundColor: "transparent",
-								},
-							}}
-							startIcon={<LoginIcon />}
-						>
-							LOGIN
-						</Button>
+						<Link href={"/account/login"}>
+							<Button
+								size="large"
+								sx={{
+									color: "black",
+									backgroundColor: "#eeeeee!important",
+									":hover": {
+										color: "#fb862e",
+									},
+								}}
+								startIcon={<LoginIcon />}
+							>
+								LOGIN
+							</Button>
+						</Link>
 					</Box>
 				</Toolbar>
 			</AppBar>
