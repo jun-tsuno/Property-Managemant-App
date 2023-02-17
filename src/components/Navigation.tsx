@@ -73,7 +73,9 @@ const Navigation = (props: Props) => {
 		<Box sx={{ display: "flex" }}>
 			<CssBaseline />
 			<AppBar component="nav" sx={{ boxShadow: "none" }}>
-				<Toolbar sx={{ backgroundColor: "white", color: "black" }}>
+				<Toolbar
+					sx={{ backgroundColor: "rgb(14 165 233)", color: "rgb(240 249 255)" }}
+				>
 					<IconButton
 						color="inherit"
 						aria-label="open drawer"

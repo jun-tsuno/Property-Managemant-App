@@ -1,4 +1,3 @@
-import Wrapper from "@/components/Wrapper";
 import Header from "../components/Header";
 import "@/style/globals.css";
 import { Inter } from "@next/font/google";
@@ -17,7 +16,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" className={`${inter.variable}`}>
 			<head />
-			<body className="font-noto_sans font-medium">
+			<body className="font-noto_sans font-medium bg-sky-50">
 				<Header />
 				<div className="my-20">{children}</div>
 			</body>
