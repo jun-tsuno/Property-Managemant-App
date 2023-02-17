@@ -39,8 +39,9 @@ const Navigation = (props: Props) => {
 	const drawer = (
 		<Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
 			<Typography variant="h6" sx={{ my: 2 }}>
-				Rent
+				<Link href={"/"}>Rent</Link>
 			</Typography>
+
 			<Divider />
 			<List>
 				{/* {navItems.map((item) => (
@@ -90,7 +91,7 @@ const Navigation = (props: Props) => {
 						component="div"
 						sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
 					>
-						Rent
+						<Link href={"/"}>Rent</Link>
 					</Typography>
 					<Box sx={{ display: { xs: "none", sm: "block" } }}>
 						{/* {navItems.map((item) => (

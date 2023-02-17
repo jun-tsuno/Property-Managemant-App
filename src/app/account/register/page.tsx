@@ -18,6 +18,10 @@ const RegisterPage = () => {
 
 	const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+	const handleClick = () => {
+		console.log("clicked");
+	};
+
 	const handleMouseDownPassword = (
 		event: React.MouseEvent<HTMLButtonElement>
 	) => {
@@ -39,6 +43,7 @@ const RegisterPage = () => {
 						id="outlined-required"
 						label="E-mail Address"
 						margin="normal"
+						autoComplete="off"
 					/>
 					<FormControl variant="outlined" margin="normal">
 						<InputLabel htmlFor="outlined-adornment-password">
@@ -84,7 +89,11 @@ const RegisterPage = () => {
 							label="Password Confirm"
 						/>
 					</FormControl>
-					<MyButton>Register</MyButton>
+					<div className="pt-5 w-[80%] mx-auto">
+						<MyButton secondary onClick={handleClick}>
+							Register
+						</MyButton>
+					</div>
 				</div>
 			</div>
 			<div className="my-8 w-[80%] aspect-video mx-auto relative md:max-w-[500px]">
@@ -92,6 +101,8 @@ const RegisterPage = () => {
 					src={"/image/signup.png"}
 					alt="signup"
 					fill
+					sizes="100%"
+					priority={true}
 					className="object-cover"
 				/>
 			</div>

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Button from "@/components/MyButton";
+import MyButton from "@/components/MyButton";
 import Link from "next/link";
 
 const HomePage = () => {
@@ -9,9 +9,9 @@ const HomePage = () => {
 				<div className="p-3 pr-7 text-center md:self-center">
 					<h1 className="font-bold">Manage your Properties</h1>
 					<p className="pt-1">Tenant & Property Management with this app.</p>
-					<div className="py-5">
+					<div className="py-5 w-36 mx-auto">
 						<Link href={"/account/register"}>
-							<Button>Get Started</Button>
+							<MyButton primary>Get Started</MyButton>
 						</Link>
 					</div>
 				</div>

@@ -1,16 +1,23 @@
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
+import classNames from "classnames";
 
-interface IProps {
+interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children: string | JSX.Element;
+	primary?: boolean;
+	secondary?: boolean;
 }
 
-const MyButton = ({ children }: IProps) => {
+const MyButton = ({ children, primary, secondary, ...rest }: IProps) => {
+	const classes = classNames(
+		"py-3 px-3 rounded w-full hover:brightness-125 hover:scale-105 transition duration-300 ease-in-out",
+		{
+			"bg-gradient-to-r from-blue-500 to-blue-700 text-white": primary,
+			"bg-gradient-to-r from-violet-500 to-violet-700 text-white": secondary,
+		}
+	);
 	return (
-		// <div className="p-0.5 rounded bg-gradient-to-r from-blue-500 via-red-500 to-yellow-500">
-		// 	<button className="px-6 py-2 text-blue-800 bg-white">Button</button>
-		// </div>
-		<button className="p-0.5 rounded bg-gradient-to-r from-blue-500 to-blue-700 hover:scale-110 transition duration-300 ease-in-out">
-			<div className="px-4 py-3 rounded text-white ">{children}</div>
+		<button className={classes} {...rest}>
+			{children}
 		</button>
 	);
 };
