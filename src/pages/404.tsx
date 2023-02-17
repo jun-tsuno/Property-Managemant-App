@@ -1,13 +1,15 @@
 import "@/style/globals.css";
-import { Padding } from "@mui/icons-material";
 import Link from "next/link";
-import { BiError } from "react-icons/bi";
+import FmdBadIcon from "@mui/icons-material/FmdBad";
 
 const NotFoundPage = () => {
 	return (
-		<div className="text-center">
+		<div className="text-center my-20">
 			<div className="text-5xl font-bold">
-				<BiError style={{ verticalAlign: "middle", display: "inline-block" }} />
+				<FmdBadIcon
+					fontSize="large"
+					style={{ verticalAlign: "middle", display: "inline-block" }}
+				/>
 				Page Not Found
 			</div>
 			<p>Please try again.</p>

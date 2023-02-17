@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import MyButton from "@/components/MyButton";
 import {
 	FormControl,
@@ -93,6 +94,12 @@ const RegisterPage = () => {
 						<MyButton secondary onClick={handleClick}>
 							Register
 						</MyButton>
+						<p className="pt-4 text-sm">
+							Already have an account?
+							<Link href={"/account/login"}>
+								<span className="text-blue-500 pl-2">LogIn</span>
+							</Link>
+						</p>
 					</div>
 				</div>
 			</div>
