@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import "@/style/globals.css";
 import { Inter } from "@next/font/google";
+import { AuthContextProvider } from "@/context/AuthContext";
 
 const inter = Inter({
 	weight: ["400", "700"],
@@ -18,7 +19,9 @@ export default function RootLayout({
 			<head />
 			<body className="font-noto_sans font-medium bg-sky-50">
 				<Header />
-				<div className="my-20">{children}</div>
+				<div className="my-20">
+					<AuthContextProvider>{children}</AuthContextProvider>
+				</div>
 			</body>
 		</html>
 	);

@@ -1,5 +1,5 @@
 "use client";
-import { MouseEventHandler, useState } from "react";
+import { useState } from "react";
 import useAuth from "@/hooks/useAuth";
 import Image from "next/image";
 import Link from "next/link";
@@ -46,20 +46,6 @@ const LoginPage = () => {
 		event.preventDefault();
 	};
 
-	const handleTest = async (e: React.FormEvent<HTMLButtonElement>) => {
-		e.preventDefault();
-		await signIn("hoge@gmail.com", "hogehoge")
-			.then((UserCredential) => {
-				const user = UserCredential.user;
-				console.log(user);
-			})
-			.catch((error: unknown) => {
-				if (error instanceof FirebaseError) {
-					console.log(error.message);
-				}
-			});
-	};
-
 	const onSubmit = async (data: IFormInput) => {
 		await signIn(data.email, data.password)
 			.then((UserCredential) => {
@@ -71,14 +57,6 @@ const LoginPage = () => {
 					console.log(error.message);
 				}
 			});
-		// try {
-		// 	await signIn(data.email, data.password);
-		// 	console.log("hey");
-		// } catch (error: unknown) {
-		// 	if (error instanceof FirebaseError) {
-		// 		console.log(error.message);
-		// 	}
-		// }
 
 		reset();
 	};
@@ -92,7 +70,6 @@ const LoginPage = () => {
 					</span>
 					LogIn
 				</div>
-				<button onClick={handleTest}>Click</button>
 				<form
 					className="flex flex-col py-10 w-[90%] max-w-[400px] mx-auto"
 					onSubmit={handleSubmit(onSubmit)}
