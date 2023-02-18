@@ -1,8 +1,10 @@
 "use client";
-import { useState } from "react";
+import { MouseEventHandler, useState } from "react";
+import useAuth from "@/hooks/useAuth";
 import Image from "next/image";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import Link from "next/link";
 import { useForm, Controller } from "react-hook-form";
+import MyButton from "@/components/MyButton";
 import {
 	FormControl,
 	IconButton,
@@ -11,9 +13,9 @@ import {
 	OutlinedInput,
 	TextField,
 } from "@mui/material";
-import { ResetTv, Visibility, VisibilityOff } from "@mui/icons-material";
-import MyButton from "@/components/MyButton";
-import Link from "next/link";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { FirebaseError } from "firebase/app";
 
 interface IFormInput {
 	email: string;
@@ -21,6 +23,7 @@ interface IFormInput {
 }
 
 const LoginPage = () => {
+	const { signIn } = useAuth();
 	const [showPassword, setShowPassword] = useState(false);
 	const {
 		control,
@@ -43,8 +46,40 @@ const LoginPage = () => {
 		event.preventDefault();
 	};
 
-	const onSubmit = (data: IFormInput) => {
-		console.log(data);
+	const handleTest = async (e: React.FormEvent<HTMLButtonElement>) => {
+		e.preventDefault();
+		await signIn("hoge@gmail.com", "hogehoge")
+			.then((UserCredential) => {
+				const user = UserCredential.user;
+				console.log(user);
+			})
+			.catch((error: unknown) => {
+				if (error instanceof FirebaseError) {
+					console.log(error.message);
+				}
+			});
+	};
+
+	const onSubmit = async (data: IFormInput) => {
+		await signIn(data.email, data.password)
+			.then((UserCredential) => {
+				const user = UserCredential.user;
+				console.log(user);
+			})
+			.catch((error: unknown) => {
+				if (error instanceof FirebaseError) {
+					console.log(error.message);
+				}
+			});
+		// try {
+		// 	await signIn(data.email, data.password);
+		// 	console.log("hey");
+		// } catch (error: unknown) {
+		// 	if (error instanceof FirebaseError) {
+		// 		console.log(error.message);
+		// 	}
+		// }
+
 		reset();
 	};
 
@@ -57,6 +92,7 @@ const LoginPage = () => {
 					</span>
 					LogIn
 				</div>
+				<button onClick={handleTest}>Click</button>
 				<form
 					className="flex flex-col py-10 w-[90%] max-w-[400px] mx-auto"
 					onSubmit={handleSubmit(onSubmit)}
@@ -80,9 +116,10 @@ const LoginPage = () => {
 								/>
 							)}
 						/>
-						{errors?.email?.type === "required" && (
-							<p className="font-bold text-red-500">Invalid Adress</p>
-						)}
+						{errors?.email?.type === "required" ||
+							(errors?.email?.type === "pattern" && (
+								<p className="font-bold text-red-500">Invalid Adress</p>
+							))}
 					</div>
 					<div className="py-3">
 						<Controller
@@ -126,7 +163,7 @@ const LoginPage = () => {
 							Login
 						</MyButton>
 						<p className="pt-4 text-sm">
-							Already have an account?
+							Don't have an account?
 							<Link href={"/account/register"}>
 								<span className="text-blue-500 pl-2">SignUp</span>
 							</Link>
