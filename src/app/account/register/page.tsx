@@ -176,14 +176,14 @@ const RegisterPage = () => {
 					</div>
 				</form>
 			</div>
-			<div className="my-8 w-[80%] aspect-square mx-auto relative md:max-w-[500px]">
+			<div className="my-8 w-[80%] aspect-video mx-auto relative md:max-w-[600px]">
 				<Image
-					src={"/image/login.png"}
+					src={"/image/signup.png"}
 					alt="signup"
-					fill
 					sizes="100%"
+					fill
 					priority={true}
-					className="object-cover"
+					className="object-contain"
 				/>
 			</div>
 		</div>
