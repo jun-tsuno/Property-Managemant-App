@@ -18,6 +18,7 @@ const HomePage = () => {
 				<div className="w-[80%] aspect-square mx-auto relative md:max-w-[550px] md:mx-0">
 					<Image
 						src={"/image/hero.png"}
+						priority
 						alt="hero-pic"
 						fill
 						className="object-cover"

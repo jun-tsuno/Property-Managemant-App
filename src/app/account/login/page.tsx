@@ -3,6 +3,7 @@ import { useState } from "react";
 import useAuth from "@/hooks/useAuth";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import MyButton from "@/components/MyButton";
 import {
@@ -23,7 +24,8 @@ interface IFormInput {
 }
 
 const LoginPage = () => {
-	const { signIn } = useAuth();
+	const { logIn } = useAuth();
+	const router = useRouter();
 	const [showPassword, setShowPassword] = useState(false);
 	const {
 		control,
@@ -47,14 +49,16 @@ const LoginPage = () => {
 	};
 
 	const onSubmit = async (data: IFormInput) => {
-		await signIn(data.email, data.password)
+		await logIn(data.email, data.password)
 			.then((UserCredential) => {
 				const user = UserCredential.user;
 				console.log(user);
+				router.push("/dashboard");
+				router.refresh();
 			})
 			.catch((error: unknown) => {
 				if (error instanceof FirebaseError) {
-					console.log(error.message);
+					alert(`Request Failed! \n ${error.message}`);
 				}
 			});
 

@@ -1,5 +1,7 @@
 "use client";
 import * as React from "react";
+import Link from "next/link";
+import useAuth from "@/hooks/useAuth";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,7 +17,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import LoginIcon from "@mui/icons-material/Login";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface Props {
 	window?: () => Window;
@@ -31,9 +33,14 @@ const navItems = [
 const Navigation = (props: Props) => {
 	const { window } = props;
 	const [mobileOpen, setMobileOpen] = React.useState(false);
+	const { user, logOut } = useAuth();
 
 	const handleDrawerToggle = () => {
 		setMobileOpen((prevState) => !prevState);
+	};
+
+	const handleLogOut = async () => {
+		await logOut();
 	};
 
 	const drawer = (
@@ -53,16 +60,32 @@ const Navigation = (props: Props) => {
 						</ListItemButton>
 					</ListItem>
 				))} */}
-				<Link href={"/account/login"}>
-					<ListItem disablePadding>
-						<ListItemButton sx={{ textAlign: "center" }}>
-							<ListItemText>
-								<LoginIcon sx={{ marginRight: "5px" }} />
-								LOGIN
-							</ListItemText>
-						</ListItemButton>
-					</ListItem>
-				</Link>
+				{!user ? (
+					<Link href={"/account/login"}>
+						<ListItem disablePadding>
+							<ListItemButton sx={{ textAlign: "center" }}>
+								<ListItemText>
+									<LoginIcon sx={{ marginRight: "5px" }} />
+									LOGIN
+								</ListItemText>
+							</ListItemButton>
+						</ListItem>
+					</Link>
+				) : (
+					<Link href={"/"}>
+						<ListItem disablePadding>
+							<ListItemButton
+								sx={{ textAlign: "center" }}
+								onClick={handleLogOut}
+							>
+								<ListItemText>
+									<LoginIcon sx={{ marginRight: "5px" }} />
+									LOGOUT
+								</ListItemText>
+							</ListItemButton>
+						</ListItem>
+					</Link>
+				)}
 			</List>
 		</Box>
 	);
@@ -109,21 +132,40 @@ const Navigation = (props: Props) => {
 								<Link href={item.to}>{item.name}</Link>
 							</Button>
 						))} */}
-						<Link href={"/account/login"}>
-							<Button
-								size="large"
-								sx={{
-									color: "black",
-									backgroundColor: "#eeeeee!important",
-									":hover": {
-										color: "#fb862e",
-									},
-								}}
-								startIcon={<LoginIcon />}
-							>
-								LOGIN
-							</Button>
-						</Link>
+						{!user ? (
+							<Link href={"/account/login"}>
+								<Button
+									size="large"
+									sx={{
+										color: "black",
+										backgroundColor: "#eeeeee!important",
+										":hover": {
+											color: "#fb862e",
+										},
+									}}
+									startIcon={<LoginIcon />}
+								>
+									LOGIN
+								</Button>
+							</Link>
+						) : (
+							<Link href={"/"}>
+								<Button
+									size="large"
+									sx={{
+										color: "black",
+										backgroundColor: "#eeeeee!important",
+										":hover": {
+											color: "#fb862e",
+										},
+									}}
+									startIcon={<LoginIcon />}
+									onClick={handleLogOut}
+								>
+									LOGOUT
+								</Button>
+							</Link>
+						)}
 					</Box>
 				</Toolbar>
 			</AppBar>

@@ -1,6 +1,7 @@
-import { UserCredential } from "firebase/auth";
+import { UserCredential, User } from "firebase/auth";
 
 export interface AuthType {
-	user: null;
-	signIn(email: string, password: string): Promise<UserCredential>;
+	user: User | null;
+	logIn(email: string, password: string): Promise<UserCredential>;
+	logOut(): Promise<void>;
 }

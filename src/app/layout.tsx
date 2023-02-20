@@ -18,10 +18,10 @@ export default function RootLayout({
 		<html lang="en" className={`${inter.variable}`}>
 			<head />
 			<body className="font-noto_sans font-medium bg-sky-50">
-				<Header />
-				<div className="my-20">
-					<AuthContextProvider>{children}</AuthContextProvider>
-				</div>
+				<AuthContextProvider>
+					<Header />
+					<div className="my-20">{children}</div>
+				</AuthContextProvider>
 			</body>
 		</html>
 	);
