@@ -22,7 +22,6 @@ const HouseDetailPage = ({ params: { houseId } }: IProps) => {
 		houseName: "",
 		location: "",
 	});
-	console.log(tenants);
 
 	useEffect(() => {
 		const getHouseData = async () => {

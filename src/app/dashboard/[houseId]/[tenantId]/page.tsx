@@ -20,7 +20,27 @@ const TenantPage = ({ params: { tenantId, houseId } }: IProps) => {
 		getTenantData();
 	}, [user]);
 
-	return <div>tenant</div>;
+	return (
+		<div className="bg-slate-200 drop-shadow-lg w-[90%] mx-auto rounded-2xl px-5 py-10">
+			<h2 className="text-center">{tenantData?.tenantName}</h2>
+			<div className="w-[80%] mx-auto">
+				<p>Room: {tenantData?.roomId}</p>
+				<p>Tel: {tenantData?.phone}</p>
+				<p>Contact: {tenantData?.eMail}</p>
+			</div>
+			<div className="bg-white rounded-xl py-5 px-14 mt-20">
+				<p>
+					<span className="font-bold">From:</span> {tenantData?.startDate}
+				</p>
+				<p className="mt-5">
+					<span className="font-bold">To:</span> {tenantData?.endDate}
+				</p>
+				<p className="mt-5">
+					<span className="font-bold">Rent(month):</span> ${tenantData?.rentFee}
+				</p>
+			</div>
+		</div>
+	);
 };
 
 export default TenantPage;
