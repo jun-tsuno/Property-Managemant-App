@@ -18,6 +18,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import LoginIcon from "@mui/icons-material/Login";
 import { useRouter } from "next/navigation";
+import LogOut from "@/firebase/auth/LogOut";
 
 interface Props {
 	window?: () => Window;
@@ -33,14 +34,14 @@ const navItems = [
 const Navigation = (props: Props) => {
 	const { window } = props;
 	const [mobileOpen, setMobileOpen] = React.useState(false);
-	const { user, logOut } = useAuth();
+	const { user } = useAuth();
 
 	const handleDrawerToggle = () => {
 		setMobileOpen((prevState) => !prevState);
 	};
 
 	const handleLogOut = async () => {
-		await logOut();
+		await LogOut();
 	};
 
 	const drawer = (

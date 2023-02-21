@@ -1,26 +1,25 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import HouseCard from "@/components/HouseCard";
 import useAuth from "@/hooks/useAuth";
-import { db } from "@/config/firebase";
-import { collection, DocumentData, getDocs, query } from "firebase/firestore";
+import { DocumentData } from "firebase/firestore";
 import AddHomeIcon from "@mui/icons-material/AddHome";
+import fetchHouse from "@/firebase/firestore/fetchHouse";
 
 const DashBoardPage = () => {
 	const { user } = useAuth();
+	const router = useRouter();
 	const [houses, setHouses] = useState<DocumentData[]>([]);
 
 	useEffect(() => {
-		const fetchHouse = async () => {
-			let dbHouses: DocumentData[] = [];
-			const q = query(collection(db, `rent-manager/${user?.uid}/house`));
-			const querySnapshot = await getDocs(q);
-			querySnapshot.forEach((doc) => {
-				dbHouses.push(doc.data());
-			});
-			setHouses(dbHouses);
+		if (user === null) router.push("/");
+
+		const getHouseData = async () => {
+			const returnedData = await fetchHouse(user);
+			setHouses(returnedData);
 		};
-		fetchHouse();
+		getHouseData();
 	}, [user]);
 
 	return (

@@ -17,6 +17,7 @@ import {
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { FirebaseError } from "firebase/app";
+import LogIn from "@/firebase/auth/LogIn";
 
 interface IFormInput {
 	email: string;
@@ -24,7 +25,7 @@ interface IFormInput {
 }
 
 const LoginPage = () => {
-	const { logIn } = useAuth();
+	// const { logIn } = useAuth();
 	const router = useRouter();
 	const [showPassword, setShowPassword] = useState(false);
 	const {
@@ -49,7 +50,7 @@ const LoginPage = () => {
 	};
 
 	const onSubmit = async (data: IFormInput) => {
-		await logIn(data.email, data.password)
+		await LogIn(data.email, data.password)
 			.then((UserCredential) => {
 				const user = UserCredential.user;
 				console.log(user);
