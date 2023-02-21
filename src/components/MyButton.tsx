@@ -9,7 +9,7 @@ interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const MyButton = ({ children, primary, secondary, ...rest }: IProps) => {
 	const classes = classNames(
-		"py-3 px-3 rounded w-full hover:brightness-125 hover:scale-105 transition duration-300 ease-in-out",
+		`py-3 px-3 rounded w-full hover:brightness-125 transition duration-300 ease-in-out`,
 		{
 			"bg-gradient-to-r from-blue-500 to-blue-700 text-white": primary,
 			"bg-gradient-to-r from-violet-500 to-violet-700 text-white": secondary,
