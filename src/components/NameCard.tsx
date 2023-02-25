@@ -12,7 +12,7 @@ const NameCard = ({ tenant, houseId }: IProps) => {
 		<div className="text-center py-3 my-3 bg-white drop-shadow-lg rounded-2xl flex items-center">
 			<p className="pl-5">{tenant.tenantName}</p>
 			<div className="w-20 ml-auto mr-5">
-				<Link href={`/dashboard/${houseId}/${tenant.tenantId}`}>
+				<Link href={`/dashboard/${houseId}/${tenant.id}`}>
 					<MyButton primary>Detail</MyButton>
 				</Link>
 			</div>

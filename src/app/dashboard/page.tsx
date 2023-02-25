@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import HouseCard from "@/components/HouseCard";
 import useAuth from "@/hooks/useAuth";
 import { DocumentData } from "firebase/firestore";
@@ -29,20 +30,24 @@ const DashBoardPage = () => {
 			</h2>
 			<section>
 				<h3>Your House</h3>
-				<div className="flex flex-wrap">
+				<div className="flex flex-wrap align-center">
 					{houses.length > 0 &&
 						houses.map((house) => {
 							return <HouseCard key={house.houseName} house={house} />;
 						})}
-					<div className="my-5 w-80 aspect-square rounded-2xl mx-auto text-zinc-500 hover:text-orange-400 bg-zinc-300 cursor-pointer flex flex-col justify-center items-center">
-						<div className="inline-block">
-							<AddHomeIcon
-								sx={{
-									fontSize: "60px",
-								}}
-							/>
-						</div>
-						<h3>Add House</h3>
+					<div className="my-5 mx-auto">
+						<Link href={"/dashboard/addhouse"}>
+							<div className="w-80 aspect-square rounded-2xl text-zinc-500 hover:text-orange-400 bg-zinc-300 cursor-pointer flex flex-col justify-center items-center">
+								<div className="inline-block">
+									<AddHomeIcon
+										sx={{
+											fontSize: "60px",
+										}}
+									/>
+								</div>
+								<h3>Add House</h3>
+							</div>
+						</Link>
 					</div>
 				</div>
 			</section>

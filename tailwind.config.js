@@ -7,6 +7,12 @@ module.exports = {
 		fontFamily: {
 			noto_sans: ["var(--font-inter)", ...fontFamily.serif],
 		},
+		extend: {
+			colors: {
+				primary: "#0EA5E9",
+				slate: "#475069",
+			},
+		},
 	},
 	plugins: [],
 };

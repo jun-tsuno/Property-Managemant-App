@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { DocumentData } from "firebase/firestore";
 import useAuth from "@/hooks/useAuth";
 import NameCard from "@/components/NameCard";
@@ -8,7 +9,6 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import fetchHouseInfo from "@/firebase/firestore/fetchHouseInfo";
 import fetchTenants from "@/firebase/firestore/fetchTenants";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
-import Link from "next/link";
 
 interface IProps {
 	params: { houseId: string };
@@ -16,6 +16,7 @@ interface IProps {
 
 const HouseDetailPage = ({ params: { houseId } }: IProps) => {
 	const { user } = useAuth();
+	const router = useRouter();
 	const [tenants, setTenants] = useState<DocumentData[]>([]);
 	const [houseInfo, setHouseInfo] = useState<DocumentData | undefined>({
 		houseId: "",
@@ -40,18 +41,17 @@ const HouseDetailPage = ({ params: { houseId } }: IProps) => {
 
 	return (
 		<>
-			<Link href={"/dashboard"}>
-				<div className="inline-block ml-20">
-					<ArrowCircleLeftIcon
-						sx={{
-							color: "#0EA5E9",
-							fontSize: "50px",
-							"&:hover": { scale: "105%", cursor: "pointer" },
-						}}
-					/>
-					DashBoard
-				</div>
-			</Link>
+			<button className="inline-block ml-20" onClick={() => router.back()}>
+				<ArrowCircleLeftIcon
+					sx={{
+						marginRight: "10px",
+						color: "#0EA5E9",
+						fontSize: "50px",
+						"&:hover": { scale: "105%", cursor: "pointer" },
+					}}
+				/>
+				DashBoard
+			</button>
 			<div className="pt-5 pb-10 max-w-2xl mx-auto">
 				<div className="w-[80%] text-center bg-white drop-shadow-xl py-4 rounded-2xl mx-auto">
 					<h1>{houseInfo?.houseName}</h1>
