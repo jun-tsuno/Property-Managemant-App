@@ -18,3 +18,9 @@ export interface HouseAddType {
 		}>
 	>;
 }
+
+export interface HouseType {
+	houseId: string;
+	houseName: string;
+	location: string;
+}
