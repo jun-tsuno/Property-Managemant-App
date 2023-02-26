@@ -20,6 +20,7 @@ const Input = ({ label, value, handleChange }: IProps) => {
 				placeholder={placeholder}
 				value={value}
 				onChange={(e) => handleChange(e.target.value)}
+				autoComplete="off"
 				className="block w-full p-3 drop-shadow-lg rounded-md"
 			/>
 		</>

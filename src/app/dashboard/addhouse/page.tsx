@@ -6,6 +6,9 @@ import addHouse from "@/firebase/firestore/addHouse";
 import useAuth from "@/hooks/useAuth";
 import { v4 as uuidv4 } from "uuid";
 import { HouseType } from "@/types/types";
+import { ToastContainer } from "react-toastify";
+import { successToast, errorToast } from "@/helpers/throwToast";
+import BackButton from "@/components/BackButton";
 
 const AddHousePage = () => {
 	const [houseName, setHouseName] = useState("");
@@ -23,6 +26,11 @@ const AddHousePage = () => {
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
+		if (!houseName || !houseLocation) {
+			errorToast();
+			return;
+		}
+
 		const houseId = uuidv4();
 		const houseData: HouseType = {
 			houseId: houseId,
@@ -30,11 +38,21 @@ const AddHousePage = () => {
 			location: houseLocation,
 		};
 
-		await addHouse(user!.uid, houseId, houseData);
+		try {
+			await addHouse(user!.uid, houseId, houseData).then(() => {
+				successToast();
+				setHouseName("");
+				setHouseLocation("");
+			});
+		} catch (error) {
+			console.log(error);
+			errorToast();
+		}
 	};
 
 	return (
 		<>
+			{/* <BackButton>{"< Home"}</BackButton> */}
 			<div>Add a new house</div>
 			<form onSubmit={handleSubmit}>
 				<div className="my-10 space-y-5 w-[90%] mx-auto">
@@ -59,6 +77,7 @@ const AddHousePage = () => {
 					</MyButton>
 				</div>
 			</form>
+			<ToastContainer />
 		</>
 	);
 };
