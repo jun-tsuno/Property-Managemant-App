@@ -1,41 +1,26 @@
-import useHouseAdd from "@/hooks/useHouseAdd";
-
 interface IProps {
 	label: { labelName: string; placeholder: string };
-	value: { houseName: string; houseLocation: string };
-	handleChange: {
-		nameChange(term: string): void;
-		locationChange(term: string): void;
-	};
+	value: string;
+	handleChange(term: string): void;
 }
 
 const Input = ({ label, value, handleChange }: IProps) => {
 	const { labelName, placeholder } = label;
-	const { houseName, houseLocation } = value;
-	const { nameChange, locationChange } = handleChange;
-
-	let inputValue: string = "";
-	let changeHandler: (term: string) => void = () => {};
-
-	switch (labelName) {
-		case "House":
-			inputValue = houseName;
-			changeHandler = nameChange;
-			break;
-
-		case "Location":
-			inputValue = houseLocation;
-			changeHandler = locationChange;
-			break;
-	}
 
 	return (
 		<>
-			<label>{labelName}</label>
+			<label
+				className="text-lg font-semibold inline-block mb-2 text-primaryDark"
+				htmlFor={label.labelName}
+			>
+				{labelName}
+			</label>
 			<input
+				id={label.labelName}
 				placeholder={placeholder}
-				value={inputValue}
-				onChange={(e) => changeHandler(e.target.value)}
+				value={value}
+				onChange={(e) => handleChange(e.target.value)}
+				className="block w-full p-3 drop-shadow-lg rounded-md"
 			/>
 		</>
 	);
