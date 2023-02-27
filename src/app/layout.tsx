@@ -1,7 +1,6 @@
 import Header from "../components/Header";
 import { Inter } from "@next/font/google";
 import { AuthContextProvider } from "@/context/AuthContext";
-import { HouseAddContextProvider } from "@/context/HouseAddContext";
 import "@/style/globals.css";
 
 const inter = Inter({
@@ -20,10 +19,8 @@ export default function RootLayout({
 			<head />
 			<body className="font-noto_sans font-medium bg-sky-50">
 				<AuthContextProvider>
-					<HouseAddContextProvider>
-						<Header />
-						<div className="my-20">{children}</div>
-					</HouseAddContextProvider>
+					<Header />
+					<div className="my-20">{children}</div>
 				</AuthContextProvider>
 			</body>
 		</html>

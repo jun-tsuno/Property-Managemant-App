@@ -8,7 +8,9 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import fetchHouseInfo from "@/firebase/firestore/fetchHouseInfo";
 import fetchTenants from "@/firebase/firestore/fetchTenants";
-import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import BackButton from "@/components/BackButton";
+import MyButton from "@/components/MyButton";
+import Link from "next/link";
 
 interface IProps {
 	params: { houseId: string };
@@ -41,17 +43,9 @@ const HouseDetailPage = ({ params: { houseId } }: IProps) => {
 
 	return (
 		<>
-			<button className="inline-block ml-20" onClick={() => router.back()}>
-				<ArrowCircleLeftIcon
-					sx={{
-						marginRight: "10px",
-						color: "#0EA5E9",
-						fontSize: "50px",
-						"&:hover": { scale: "105%", cursor: "pointer" },
-					}}
-				/>
-				DashBoard
-			</button>
+			<div className="ml-10">
+				<BackButton onClick={() => router.back()}>{"< Home"}</BackButton>
+			</div>
 			<div className="pt-5 pb-10 max-w-2xl mx-auto">
 				<div className="w-[80%] text-center bg-white drop-shadow-xl py-4 rounded-2xl mx-auto">
 					<h1>{houseInfo?.houseName}</h1>
@@ -80,6 +74,11 @@ const HouseDetailPage = ({ params: { houseId } }: IProps) => {
 							);
 						})}
 					</ul>
+					<div className="my-7 w-32 mx-auto">
+						<Link href={`/dashboard/${houseId}/addRentee`}>
+							<MyButton secondary>Add Rentee</MyButton>
+						</Link>
+					</div>
 				</div>
 			</div>
 		</>

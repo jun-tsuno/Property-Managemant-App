@@ -1,10 +1,11 @@
 interface IProps {
 	label: { labelName: string; placeholder: string };
-	value: string;
-	handleChange(term: string): void;
+	value: string | number;
+	inputType?: string;
+	handleChange(term: string | number): void;
 }
 
-const Input = ({ label, value, handleChange }: IProps) => {
+const Input = ({ label, value, inputType, handleChange }: IProps) => {
 	const { labelName, placeholder } = label;
 
 	return (
@@ -19,6 +20,8 @@ const Input = ({ label, value, handleChange }: IProps) => {
 				id={label.labelName}
 				placeholder={placeholder}
 				value={value}
+				type={inputType}
+				min="0"
 				onChange={(e) => handleChange(e.target.value)}
 				autoComplete="off"
 				className="block w-full p-3 drop-shadow-lg rounded-md"

@@ -24,3 +24,14 @@ export interface HouseType {
 	houseName: string;
 	location: string;
 }
+
+export interface TenantType {
+	tenantId: string;
+	tenantName: string;
+	roomId: number;
+	phone: string;
+	email: string;
+	startDate: string;
+	endDate: string;
+	fee: number;
+}

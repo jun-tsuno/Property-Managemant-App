@@ -37,7 +37,7 @@ const DashBoardPage = () => {
 						})}
 					<div className="my-5 mx-auto">
 						<Link href={"/dashboard/addhouse"}>
-							<div className="w-80 aspect-square rounded-2xl text-zinc-500 hover:text-orange-400 bg-zinc-300 cursor-pointer flex flex-col justify-center items-center">
+							<div className="w-80 aspect-square rounded-2xl text-zinc-500 hover:text-customOrange bg-zinc-300 cursor-pointer flex flex-col justify-center items-center">
 								<div className="inline-block">
 									<AddHomeIcon
 										sx={{

@@ -1,18 +1,14 @@
-"use client";
 import { ButtonHTMLAttributes } from "react";
-import { useRouter } from "next/navigation";
 
 interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children: string;
 }
 
-const BackButton = ({ children }: IProps) => {
-	const router = useRouter();
-
+const BackButton = ({ children, ...rest }: IProps) => {
 	return (
-		<BackButton className="inline-block ml-20" onClick={() => router.back()}>
+		<button className="inline-block text-xl hover:text-customOrange" {...rest}>
 			{children}
-		</BackButton>
+		</button>
 	);
 };
 

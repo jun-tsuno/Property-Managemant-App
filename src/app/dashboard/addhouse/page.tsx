@@ -1,5 +1,6 @@
 "use client";
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 import Input from "@/components/Input";
 import MyButton from "@/components/MyButton";
 import addHouse from "@/firebase/firestore/addHouse";
@@ -14,6 +15,7 @@ const AddHousePage = () => {
 	const [houseName, setHouseName] = useState("");
 	const [houseLocation, setHouseLocation] = useState("");
 	const { user } = useAuth();
+	const router = useRouter();
 
 	const handleNameChange = (term: string) => {
 		setHouseName(term);
@@ -51,9 +53,11 @@ const AddHousePage = () => {
 	};
 
 	return (
-		<>
-			{/* <BackButton>{"< Home"}</BackButton> */}
-			<div>Add a new house</div>
+		<div className="w-[90%] mx-auto max-w-[600px]">
+			<div className="ml-10">
+				<BackButton onClick={() => router.back()}>{"< Home"}</BackButton>
+			</div>
+			<h1 className="text-center py-5 ">Add a New House</h1>
 			<form onSubmit={handleSubmit}>
 				<div className="my-10 space-y-5 w-[90%] mx-auto">
 					<div>
@@ -78,7 +82,7 @@ const AddHousePage = () => {
 				</div>
 			</form>
 			<ToastContainer />
-		</>
+		</div>
 	);
 };
 

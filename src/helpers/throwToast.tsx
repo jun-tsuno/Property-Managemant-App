@@ -16,8 +16,10 @@ export const successToast = () => {
 	});
 };
 
-export const errorToast = () => {
-	toast.error("Something went Wrong! \n Try Again!", {
+const defaultErrorMessage = "Something went Wrong! \n Try Again!";
+
+export const errorToast = (errorMessage: string = defaultErrorMessage) => {
+	toast.error(errorMessage, {
 		position: "top-right",
 		autoClose: 3000,
 		hideProgressBar: true,
