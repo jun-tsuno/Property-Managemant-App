@@ -69,7 +69,7 @@ const HouseDetailPage = ({ params: { houseId } }: IProps) => {
 								<NameCard
 									key={tenant.tenantId}
 									houseId={houseId}
-									tenant={tenant}
+									tenantData={tenant}
 								/>
 							);
 						})}

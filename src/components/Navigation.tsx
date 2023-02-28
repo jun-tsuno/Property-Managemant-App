@@ -17,7 +17,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import LoginIcon from "@mui/icons-material/Login";
-import { useRouter } from "next/navigation";
 import LogOut from "@/firebase/auth/LogOut";
 
 interface Props {
