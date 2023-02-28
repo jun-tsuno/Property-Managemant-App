@@ -1,0 +1,15 @@
+name: Prettier
+
+on: [push, pull_request]
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Prettier
+        uses: pazams/prettier-action@v2.2.0
+        with:
+          args: --write .

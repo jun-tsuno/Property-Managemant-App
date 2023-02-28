@@ -11,6 +11,8 @@ import fetchTenants from "@/firebase/firestore/fetchTenants";
 import BackButton from "@/components/BackButton";
 import MyButton from "@/components/MyButton";
 import Link from "next/link";
+import MyDialog, { DialogProps } from "@/components/MyDialog";
+import deleteHouse from "@/firebase/firestore/deleteHouse";
 
 interface IProps {
 	params: { houseId: string };
@@ -25,6 +27,7 @@ const HouseDetailPage = ({ params: { houseId } }: IProps) => {
 		houseName: "",
 		location: "",
 	});
+	const [modalConfig, setModalConfig] = useState<DialogProps | undefined>();
 
 	useEffect(() => {
 		const getHouseData = async () => {
@@ -41,10 +44,29 @@ const HouseDetailPage = ({ params: { houseId } }: IProps) => {
 		getTenantsData();
 	}, [user]);
 
+	const handleDelete = async () => {
+		const res = await new Promise<string>((resolve) => {
+			setModalConfig({
+				onClose: resolve,
+				title: "Confirm",
+				message: "Are you sure to remove this house from your database?",
+			});
+		});
+		setModalConfig(undefined);
+
+		if (res === "ok") {
+			deleteHouse(user!.uid, houseId);
+			router.push("/dashboard/");
+		}
+		return;
+	};
+
 	return (
 		<>
 			<div className="ml-10">
-				<BackButton onClick={() => router.back()}>{"< Home"}</BackButton>
+				<BackButton onClick={() => router.push("/dashboard")}>
+					{"< Home"}
+				</BackButton>
 			</div>
 			<div className="pt-5 pb-10 max-w-2xl mx-auto">
 				<div className="w-[80%] text-center bg-white drop-shadow-xl py-4 rounded-2xl mx-auto">
@@ -74,13 +96,19 @@ const HouseDetailPage = ({ params: { houseId } }: IProps) => {
 							);
 						})}
 					</ul>
-					<div className="my-7 w-32 mx-auto">
+					<div className="my-10 w-[60%] mx-auto">
 						<Link href={`/dashboard/${houseId}/addRentee`}>
 							<MyButton secondary>Add Rentee</MyButton>
 						</Link>
 					</div>
+					<div className="my-5 w-[60%] mx-auto">
+						<MyButton danger onClick={handleDelete}>
+							Delete House
+						</MyButton>
+					</div>
 				</div>
 			</div>
+			{modalConfig && <MyDialog {...modalConfig} />}
 		</>
 	);
 };
