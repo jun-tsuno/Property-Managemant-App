@@ -69,7 +69,7 @@ const AddRenteePage = ({ params: { houseId } }: IProps) => {
       startDate,
       endDate,
       fee,
-      rentCollect: false
+      rentCollected: false
     };
 
     try {

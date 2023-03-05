@@ -15,12 +15,19 @@ interface IProps {
   params: { tenantId: string; houseId: string };
 }
 
+const resetRentCollection = async (userId: string, houseId: string, tenantId: string) => {
+  await updateRentCollect(false, userId, houseId, tenantId);
+  return;
+};
+
+const monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
 const TenantPage = ({ params: { tenantId, houseId } }: IProps) => {
   const { user } = useAuth();
   const router = useRouter();
   const [tenantData, setTenantData] = useState<DocumentData>();
   const [modalConfig, setModalConfig] = useState<DialogProps | undefined>();
-  const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth());
+  const [currentMonth, setCurrentMonth] = useState<string>(monthArr[new Date().getMonth() - 1]);
   const [isCollected, setIsCollected] = useState<boolean>(tenantData?.rentCollected ?? false);
 
   useEffect(() => {
@@ -31,6 +38,11 @@ const TenantPage = ({ params: { tenantId, houseId } }: IProps) => {
     };
     getTenantData();
   }, [user]);
+
+  // useEffect(() => {
+  //   resetRentCollection(user ? user.uid : '', houseId, tenantId);
+  //   console.log('month?');
+  // }, [currentMonth]);
 
   const handleRentCollect = async () => {
     setIsCollected(!isCollected);
@@ -88,7 +100,7 @@ const TenantPage = ({ params: { tenantId, houseId } }: IProps) => {
               <span className="mr-2 italic font-bold text-slate">Rent(month):</span> ${tenantData?.fee}
             </p>
             <div>
-              <span className="mr-2 italic font-bold text-slate">This month:</span>
+              <span className="mr-2 italic font-bold text-slate">{currentMonth}:</span>
               {isCollected ? 'Collected' : 'Not Collected'}
               <input type="checkbox" checked={isCollected} onChange={handleRentCollect} className="scale-150 ml-5" />
             </div>
