@@ -22,7 +22,7 @@ const DashBoardPage = () => {
       setHouses(returnedData);
     };
     getHouseData();
-  }, [user]);
+  }, [user, isAuthenticated]);
 
   return (
     <>
