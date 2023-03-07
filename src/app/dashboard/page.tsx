@@ -12,20 +12,15 @@ const DashBoardPage = () => {
   const { user } = useAuth();
   const router = useRouter();
   const [houses, setHouses] = useState<DocumentData[]>([]);
+  if (user === null) router.push('/');
 
   useEffect(() => {
-    console.log(user);
-
-    if (user === null) router.push('/');
-
-    console.log('user:' + user?.displayName);
-
     const getHouseData = async () => {
       const returnedData = await fetchHouse(user);
       setHouses(returnedData);
     };
     getHouseData();
-  }, []);
+  }, [user]);
 
   return (
     <>
