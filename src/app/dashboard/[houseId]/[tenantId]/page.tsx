@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { DocumentData } from 'firebase/firestore';
 import fetchTenantInfo from '@/firebase/firestore/fetchTenantInfo';
@@ -32,12 +32,23 @@ const TenantPage = ({ params: { tenantId, houseId } }: IProps) => {
   const [modalConfig, setModalConfig] = useState<DialogProps | undefined>();
   const [currentMonth, _setCurrentMonth] = useState<number>(new Date().getMonth());
   const [isCollected, setIsCollected] = useState<boolean>(tenantData?.rentCollected ?? false);
+  const isFirstRender = useRef(false);
   const currentMonthString = monthArr[currentMonth];
+
+  // restrain useEffect at the first render
+  useEffect(() => {
+    isFirstRender.current = true;
+  }, []);
 
   // initialize the rentCollected state when month is changed
   useEffect(() => {
-    resetRentCollection(user?.uid, houseId, tenantId);
-    setIsCollected(false);
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+    } else {
+      console.log('fffffffff');
+      resetRentCollection(user?.uid, houseId, tenantId);
+      setIsCollected(false);
+    }
   }, [currentMonth]);
 
   useEffect(() => {
