@@ -15,14 +15,14 @@ const DashBoardPage = () => {
   const [houses, setHouses] = useState<DocumentData[]>([]);
 
   useEffect(() => {
-    if (!isAuthenticated) router.push('/');
+    if (!isAuthenticated()) router.push('/');
 
     const getHouseData = async () => {
       const returnedData = await fetchHouse(user);
       setHouses(returnedData);
     };
     getHouseData();
-  }, [user, isAuthenticated]);
+  }, [user, isAuthenticated()]);
 
   return (
     <>
