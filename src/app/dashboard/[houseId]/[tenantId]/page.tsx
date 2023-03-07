@@ -15,7 +15,7 @@ interface IProps {
   params: { tenantId: string; houseId: string };
 }
 
-const resetRentCollection = async (userId: string, houseId: string, tenantId: string) => {
+const resetRentCollection = async (userId: string | undefined, houseId: string, tenantId: string) => {
   await updateRentCollect(false, userId, houseId, tenantId);
   return;
 };
@@ -27,8 +27,15 @@ const TenantPage = ({ params: { tenantId, houseId } }: IProps) => {
   const router = useRouter();
   const [tenantData, setTenantData] = useState<DocumentData>();
   const [modalConfig, setModalConfig] = useState<DialogProps | undefined>();
-  const [currentMonth, setCurrentMonth] = useState<string>(monthArr[new Date().getMonth() - 1]);
+  const [currentMonth, _setCurrentMonth] = useState<number>(new Date().getMonth());
   const [isCollected, setIsCollected] = useState<boolean>(tenantData?.rentCollected ?? false);
+  const currentMonthString = monthArr[currentMonth];
+
+  // initialize the rentCollected state when month is changed
+  useEffect(() => {
+    resetRentCollection(user?.uid, houseId, tenantId);
+    setIsCollected(false);
+  }, [currentMonth]);
 
   useEffect(() => {
     const getTenantData = async () => {
@@ -38,11 +45,6 @@ const TenantPage = ({ params: { tenantId, houseId } }: IProps) => {
     };
     getTenantData();
   }, [user]);
-
-  // useEffect(() => {
-  //   resetRentCollection(user ? user.uid : '', houseId, tenantId);
-  //   console.log('month?');
-  // }, [currentMonth]);
 
   const handleRentCollect = async () => {
     setIsCollected(!isCollected);
@@ -83,25 +85,29 @@ const TenantPage = ({ params: { tenantId, houseId } }: IProps) => {
               <span className="mr-2 italic font-bold text-slate">Room:</span> {tenantData?.roomId}
             </p>
             <p>
-              <span className="mr-2 italic font-bold text-slate">Tel:</span> {tenantData?.phone}
+              <span className="mr-2 italic font-bold text-slate">Tel :</span> {tenantData?.phone}
             </p>
             <p>
-              <span className="mr-2 italic font-bold text-slate">Contact:</span> {tenantData?.email}
+              <span className="mr-2 italic font-bold text-slate">Contact :</span> {tenantData?.email}
             </p>
           </div>
           <div className="bg-white rounded-xl py-10 px-14 mt-14 space-y-5">
             <p>
-              <span className="mr-2 italic font-bold text-slate">From:</span> {tenantData?.startDate}
+              <span className="mr-2 italic font-bold text-slate">From :</span> {tenantData?.startDate}
             </p>
             <p>
-              <span className="mr-2 italic font-bold text-slate">To:</span> {tenantData?.endDate}
+              <span className="mr-2 italic font-bold text-slate">To :</span> {tenantData?.endDate}
             </p>
             <p>
-              <span className="mr-2 italic font-bold text-slate">Rent(month):</span> ${tenantData?.fee}
+              <span className="mr-2 italic font-bold text-slate">Rent(month) :</span> ${tenantData?.fee}
             </p>
             <div>
-              <span className="mr-2 italic font-bold text-slate">{currentMonth}:</span>
-              {isCollected ? 'Collected' : 'Not Collected'}
+              <span className="mr-2 italic font-bold text-slate">{currentMonthString} :</span>
+              {isCollected ? (
+                <span className="text-green-500 font-semibold italic">Collected</span>
+              ) : (
+                <span className="text-red-500 font-semibold italic">Not Collected</span>
+              )}
               <input type="checkbox" checked={isCollected} onChange={handleRentCollect} className="scale-150 ml-5" />
             </div>
           </div>

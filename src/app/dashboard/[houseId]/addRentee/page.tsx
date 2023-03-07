@@ -10,6 +10,7 @@ import { TenantType } from '@/types/types';
 import { ToastContainer } from 'react-toastify';
 import { successToast, errorToast } from '@/helpers/throwToast';
 import BackButton from '@/components/BackButton';
+import MyDatePicker from '@/components/MyDatePicker';
 
 interface IProps {
   params: { houseId: string };
@@ -114,18 +115,6 @@ const AddRenteePage = ({ params: { houseId } }: IProps) => {
       value: fee,
       type: 'number',
       func: handleFeeChange
-    },
-    {
-      label: 'Start Date',
-      value: startDate,
-      type: 'text',
-      func: handleStartDateChange
-    },
-    {
-      label: 'End Date',
-      value: endDate,
-      type: 'text',
-      func: handleEndDateChange
     }
   ];
 
@@ -149,6 +138,10 @@ const AddRenteePage = ({ params: { houseId } }: IProps) => {
               </div>
             );
           })}
+          <div className="pt-5 space-y-5 md:flex md:justify-evenly md:space-y-0">
+            <MyDatePicker label="Start Date" handleDateChange={handleStartDateChange} />
+            <MyDatePicker label="End Date" handleDateChange={handleEndDateChange} />
+          </div>
         </div>
         <div className="w-32 mx-auto">
           <MyButton primary type="submit">
