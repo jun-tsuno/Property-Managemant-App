@@ -11,13 +11,11 @@ import isAuthenticated from '@/firebase/firestore/isAuthenticated';
 
 const DashBoardPage = () => {
   const { user } = useAuth();
-  const router = useRouter();
+  // const router = useRouter();
   const [houses, setHouses] = useState<DocumentData[]>([]);
 
   useEffect(() => {
-    console.log(isAuthenticated());
-
-    isAuthenticated() === false && router.push('/');
+    // isAuthenticated() === false && router.push('/');
 
     const getHouseData = async () => {
       const returnedData = await fetchHouse(user);
@@ -28,32 +26,38 @@ const DashBoardPage = () => {
 
   return (
     <>
-      <h2 className="pl-5 mb-5">
-        Welcome Back, <span className="font-bold">{`${user?.displayName}`}</span>
-      </h2>
-      <section>
-        <h3 className="pl-5">House List</h3>
-        <div className="flex flex-wrap align-center">
-          {houses.length > 0 &&
-            houses.map((house) => {
-              return <HouseCard key={house.houseName} house={house} />;
-            })}
-          <div className="my-5 mx-auto">
-            <Link href={'/dashboard/addhouse'}>
-              <div className="w-80 aspect-square rounded-2xl text-zinc-500 hover:text-customOrange bg-zinc-300 cursor-pointer flex flex-col justify-center items-center">
-                <div className="inline-block">
-                  <AddHomeIcon
-                    sx={{
-                      fontSize: '60px'
-                    }}
-                  />
-                </div>
-                <h3>Add House</h3>
+      {!user ? (
+        <div>Please Login first.</div>
+      ) : (
+        <>
+          <h2 className="pl-5 mb-5">
+            Welcome Back, <span className="font-bold">{`${user?.displayName}`}</span>
+          </h2>
+          <section>
+            <h3 className="pl-5">House List</h3>
+            <div className="flex flex-wrap align-center">
+              {houses.length > 0 &&
+                houses.map((house) => {
+                  return <HouseCard key={house.houseName} house={house} />;
+                })}
+              <div className="my-5 mx-auto">
+                <Link href={'/dashboard/addhouse'}>
+                  <div className="w-80 aspect-square rounded-2xl text-zinc-500 hover:text-customOrange bg-zinc-300 cursor-pointer flex flex-col justify-center items-center">
+                    <div className="inline-block">
+                      <AddHomeIcon
+                        sx={{
+                          fontSize: '60px'
+                        }}
+                      />
+                    </div>
+                    <h3>Add House</h3>
+                  </div>
+                </Link>
               </div>
-            </Link>
-          </div>
-        </div>
-      </section>
+            </div>
+          </section>
+        </>
+      )}
     </>
   );
 };
