@@ -7,14 +7,17 @@ import useAuth from '@/hooks/useAuth';
 import { DocumentData } from 'firebase/firestore';
 import AddHomeIcon from '@mui/icons-material/AddHome';
 import fetchHouse from '@/firebase/firestore/fetchHouse';
+import { getAuth } from 'firebase/auth';
 
 const DashBoardPage = () => {
+  const auth = getAuth();
   const { user } = useAuth();
   const router = useRouter();
   const [houses, setHouses] = useState<DocumentData[]>([]);
-  if (user === null) router.push('/');
 
   useEffect(() => {
+    if (auth.currentUser === null) router.push('/');
+
     const getHouseData = async () => {
       const returnedData = await fetchHouse(user);
       setHouses(returnedData);
