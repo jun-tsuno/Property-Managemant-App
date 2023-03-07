@@ -17,7 +17,7 @@ const DashBoardPage = () => {
   useEffect(() => {
     console.log(isAuthenticated());
 
-    if (isAuthenticated() === false) router.push('/');
+    isAuthenticated() === false && router.push('/');
 
     const getHouseData = async () => {
       const returnedData = await fetchHouse(user);

@@ -42,7 +42,10 @@ const LoginPage = () => {
   const onSubmit = async (data: IFormInput) => {
     await LogIn(data.email, data.password)
       .then((UserCredential) => {
-        UserCredential.user && router.push('/dashboard');
+        UserCredential.user &&
+          setTimeout(() => {
+            router.push('/dashboard');
+          }, 1000);
       })
       .catch((error: unknown) => {
         if (error instanceof FirebaseError) {
