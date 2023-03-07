@@ -43,7 +43,6 @@ const LoginPage = () => {
     await LogIn(data.email, data.password)
       .then((_UserCredential) => {
         router.push('/dashboard');
-        router.refresh();
       })
       .catch((error: unknown) => {
         if (error instanceof FirebaseError) {
