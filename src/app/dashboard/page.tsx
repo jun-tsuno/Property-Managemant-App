@@ -15,7 +15,9 @@ const DashBoardPage = () => {
   const [houses, setHouses] = useState<DocumentData[]>([]);
 
   useEffect(() => {
-    if (!isAuthenticated()) router.push('/');
+    console.log(isAuthenticated());
+
+    if (isAuthenticated() === false) router.push('/');
 
     const getHouseData = async () => {
       const returnedData = await fetchHouse(user);
