@@ -1,11 +1,12 @@
-import Navigation from "./Navigation";
+'use client';
+import Navigation from './Navigation';
 
 const Header = () => {
-	return (
-		<div>
-			<Navigation />
-		</div>
-	);
+  return (
+    <div className="drop-shadow-lg">
+      <Navigation />
+    </div>
+  );
 };
 
 export default Header;

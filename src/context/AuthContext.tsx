@@ -9,13 +9,13 @@ export const AuthContext = createContext<AuthType>({} as AuthType);
 export const AuthContextProvider = ({ children }: any): JSX.Element => {
   const [user, setUser] = useState<User | null>(null);
 
-  setPersistence(auth, browserSessionPersistence);
+  // setPersistence(auth, browserSessionPersistence);
 
   onAuthStateChanged(auth, (currUser) => {
     if (currUser) {
       setUser(currUser);
     } else {
-      // console.log("no user");
+      setUser(null);
     }
   });
 

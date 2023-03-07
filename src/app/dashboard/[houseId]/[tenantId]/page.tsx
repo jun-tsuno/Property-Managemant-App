@@ -10,6 +10,9 @@ import MyDialog, { DialogProps } from '@/components/MyDialog';
 import MyButton from '@/components/MyButton';
 import deleteTenant from '@/firebase/firestore/deleteTenant';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
+import PaidTwoToneIcon from '@mui/icons-material/PaidTwoTone';
+import PriceCheckTwoToneIcon from '@mui/icons-material/PriceCheckTwoTone';
 
 interface IProps {
   params: { tenantId: string; houseId: string };
@@ -75,14 +78,18 @@ const TenantPage = ({ params: { tenantId, houseId } }: IProps) => {
         <BackButton onClick={() => router.push(`/dashboard/${houseId}`)}>{'< House Detail'}</BackButton>
       </div>
       <div className="w-[90%] max-w-[500px] mx-auto space-y-10">
-        <div className="bg-slate-200 drop-shadow-lg rounded-2xl px-5 py-10">
-          <div className="text-center pb-4 text-primaryDark">
+        <div
+          className={`bg-slate-200 drop-shadow-lg rounded-2xl px-5 py-10  text-secondary border-4 ${
+            isCollected ? 'border-collected' : 'border-unCollected'
+          }`}
+        >
+          <div className="text-center pb-4 text-primary">
             <AccountBoxIcon sx={{ width: '130px', height: 'auto' }} />
           </div>
-          <h2 className="text-center">{tenantData?.tenantName}</h2>
-          <div className="w-[80%] mx-auto pt-10">
+          <h2 className="text-center font-bold text-2xl">{tenantData?.tenantName}</h2>
+          <div className="w-[90%] mx-auto pt-10 text-lg">
             <p>
-              <span className="mr-2 italic font-bold text-slate">Room:</span> {tenantData?.roomId}
+              <span className="mr-2 italic font-bold text-slate">Room :</span> {tenantData?.roomId}
             </p>
             <p>
               <span className="mr-2 italic font-bold text-slate">Tel :</span> {tenantData?.phone}
@@ -91,24 +98,30 @@ const TenantPage = ({ params: { tenantId, houseId } }: IProps) => {
               <span className="mr-2 italic font-bold text-slate">Contact :</span> {tenantData?.email}
             </p>
           </div>
-          <div className="bg-white rounded-xl py-10 px-14 mt-14 space-y-5">
-            <p>
-              <span className="mr-2 italic font-bold text-slate">From :</span> {tenantData?.startDate}
-            </p>
-            <p>
-              <span className="mr-2 italic font-bold text-slate">To :</span> {tenantData?.endDate}
-            </p>
-            <p>
-              <span className="mr-2 italic font-bold text-slate">Rent(month) :</span> ${tenantData?.fee}
-            </p>
-            <div>
-              <span className="mr-2 italic font-bold text-slate">{currentMonthString} :</span>
-              {isCollected ? (
-                <span className="text-green-500 font-semibold italic">Collected</span>
-              ) : (
-                <span className="text-red-500 font-semibold italic">Not Collected</span>
-              )}
-              <input type="checkbox" checked={isCollected} onChange={handleRentCollect} className="scale-150 ml-5" />
+          <div className="bg-white rounded-xl py-10 mt-14">
+            <div className="space-y-5 w-[90%] sm:w-3/5 mx-auto text-lg">
+              <p>
+                <CalendarMonthTwoToneIcon />
+                <span className="mx-2 italic font-bold text-slate">From :</span> {tenantData?.startDate}
+              </p>
+              <p>
+                <CalendarMonthTwoToneIcon />
+                <span className="mx-2 italic font-bold text-slate">To :</span> {tenantData?.endDate}
+              </p>
+              <p>
+                <PaidTwoToneIcon />
+                <span className="mx-2 italic font-bold text-slate">Rent(month) :</span> ${tenantData?.fee}
+              </p>
+              <div>
+                <PriceCheckTwoToneIcon />
+                <span className="mx-2 italic font-bold text-slate">{currentMonthString} :</span>
+                {isCollected ? (
+                  <span className="text-collected font-semibold italic">Collected</span>
+                ) : (
+                  <span className="text-unCollected font-semibold italic">Not Collected</span>
+                )}
+                <input type="checkbox" checked={isCollected} onChange={handleRentCollect} className="scale-150 ml-5" />
+              </div>
             </div>
           </div>
         </div>
