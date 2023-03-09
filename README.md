@@ -1,8 +1,9 @@
 # Property & Tenant Management App
-
+<p>
 <img width="300" alt="Screenshot 2023-03-09 at 12 02 26 AM" src="https://user-images.githubusercontent.com/110567844/223959162-12e54290-178c-4109-bc1e-dae4a49ed5d4.png">
 <img width="300" alt="Screenshot 2023-03-09 at 12 03 29 AM" src="https://user-images.githubusercontent.com/110567844/223959097-bc12c655-cadd-446e-90e0-8aeffa159f48.png">
 <img width="300" alt="Screenshot 2023-03-09 at 12 03 44 AM" src="https://user-images.githubusercontent.com/110567844/223959025-efe48acb-ce86-44ef-acdd-d0154d727f9f.png">
+</p>
 
 ## Demo
 
