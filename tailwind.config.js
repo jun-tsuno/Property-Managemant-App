@@ -5,7 +5,7 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     fontFamily: {
-      noto_sans: ['var(--font-inter)', ...fontFamily.serif]
+      noto_sans: ['var(--font-overpass)', ...fontFamily.serif]
     },
     extend: {
       colors: {
